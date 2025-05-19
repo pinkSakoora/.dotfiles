@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# 1. Edit pacman config to enable multilb
+# 2. Install basic pacman packages
+# 3. Setup yay
+# 4. Install yay packages
+# 5. Install wine and other 32-bit programs
+# 6. Install zsh as default shell
+# 7. Install oh-my-zsh
+# 8. Clone from dotfiles repo
+# 9. Set configs
+# 10. Set up hyprpm
+
+# 1. Enable multilib
+PACMANPATH=/home/PinkSakoora/pacman.conf
+printf "Enabling multilib in /etc/pacman.conf"
+sudo sed -i 's/# Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist/' $PACMANPATH
+sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' pacman.conf
