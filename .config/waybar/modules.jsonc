@@ -1,0 +1,85 @@
+// -*- mode: jsonc -*-
+{
+   "hyprland/workspaces": {
+    	"disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{icon}",
+        "format-icons": {
+    	    "1": "一",
+	    "2": "二",
+	    "3": "三",
+	    "4": "四",
+	    "5": "五",
+	    "default": "零"
+        },
+	"persistent-workspaces": {
+	"*": [1,2,3,4,5]
+	}
+    },
+    "hyprland/submap": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+//    "hyprland/window": {
+//        "format": "{title}",
+//	"icon": true,
+//	"icon-size": 24
+//    },
+    "battery": {
+        "interval": 60,
+        "states": {
+            "warning": 30
+        },
+        "format": "{icon}",
+        "format-icons": ["▏▏▏▏", "▋▏▏▏", "▋▋▏▏", "▋▋▋▏", "▋▋▋▋"],
+	"tooltip-format": "{capacity}% ({timeTo})"
+    },
+    "clock": {
+        "timezone": "Asia/Kolkata",
+        "interval": 60,
+        "tooltip": true,
+        "format": "{:%H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+	"calendar": {
+                    "mode"          : "year",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "format": {
+                              "months":     "<span color='#ffead3'><b>{}</b></span>",
+                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    },
+    "network": {
+        "format": "",
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": "", //An empty format will hide the module.
+        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+        "tooltip-format-wifi": "{essid}",
+        "tooltip-format-ethernet": "Down: {bandwidthDownBytes} Up: {bandwidthUpBytes} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50
+    },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    "pulseaudio": {
+	"format": ""
+    },
+    "custom/text": {
+	"format": "Hyvä Suomi!",
+	"tooltip": false
+    }
+}

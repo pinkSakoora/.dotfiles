@@ -1,0 +1,50 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 10, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "margin": "5px 5px 0px 5px", 
+    "spacing": 8, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+//    "modules-center": [
+//	"hyprland/window"
+//    ],
+    "modules-right": [
+	"group/right"
+    ],
+    "reload_style_on_change": true,
+    // Modules configuration
+
+    "include": ["~/.config/waybar/modules.jsonc"],
+
+    // Grouping
+
+    "group/audio": {
+        "orientation": "horizontal",
+        "modules": [ 
+            "pulseaudio",
+	    "pulseaudio/slider"
+	],
+	"drawer": {
+	    "transition-duration": 300,
+	    "transition-left-to-right": true,
+	    "children-class": "audio-group"
+	}
+    },
+
+    "group/right": {
+	"orientation": "horizontal",
+	"modules": [
+//	    "custom/playing",
+	    "custom/text",
+            "network",
+	    "group/audio",
+	    "battery",
+	    "clock"
+	]
+    }
+}

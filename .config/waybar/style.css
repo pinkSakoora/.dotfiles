@@ -1,0 +1,141 @@
+@import '../../.cache/wal/colors-waybar.css';
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Zpix;
+    font-size: 20px;
+    font-weight: bold;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent; 
+    color: @background;
+    padding: 10px 20px;
+}
+
+tooltip {
+  background: @color3;
+  border: 2px solid @background;
+  border-radius: 10px;
+  opacity: 0.8;
+}
+tooltip label {
+  color: @background;
+}
+
+#workspaces {
+    padding: 15px 50px;
+    background: @background;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    background: transparent;
+    color: @color1;
+}
+
+#workspaces button.empty {
+    color: @color8;
+}
+
+#workspaces button.active {
+    color: @color3;
+}
+
+#clock {
+    padding: 0px 20px;
+    color:@color3;
+}
+
+#battery {
+    color: @color3;
+    padding: 0px 10px;
+    opacity: 0.8;
+}
+
+#battery.charging {
+    color: @color1;
+    padding: 0px 10px;
+    opacity: 0.8;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#battery.warning:not(.charging) {
+    color: white;
+    padding: 0px 10px;
+    border-radius: 10px;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#pulseaudio-slider {
+    min-width: 100px;
+    border-radius: 20px;
+    padding: 0px 20px;
+    opacity: 1;
+}
+
+#pulseaudio-slider slider {
+    min-height: 10px;
+    min-width: 10px;
+    background: @background;
+    opacity: 1;
+    border-radius: 10px;
+}
+
+#pulseaudio-slider trough {
+    min-height: 10px;
+    min-width: 80px;
+    border-radius: 3px;
+    background-color: @color1;
+}
+
+#pulseaudio-slider highlight{
+    min-width: 7px;
+    border-radius: 3px;
+    background-color: @color3;
+}
+
+#network {
+    color: @color3;
+    padding: 0px 20px;
+}
+
+#custom-playing {
+    color: @color3;
+    padding: 0px 20px;
+}
+
+#image album-art {
+    border-radius: 10px;
+}
+
+#right {
+    background-color: @background;
+    color: @color1;
+    border-radius: 10px;
+    padding: 0px 10px;
+    opacity: 0.8;
+}
+
+#audio {
+    padding: 0px 20px;
+}
+
+#custom-text {
+    padding: 0px 20px;
+    color: @color1;
+}
