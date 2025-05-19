@@ -4,15 +4,47 @@
 # 2. Install basic pacman packages
 # 3. Setup yay
 # 4. Install yay packages
-# 5. Install wine and other 32-bit programs
 # 6. Install zsh as default shell
 # 7. Install oh-my-zsh
 # 8. Clone from dotfiles repo
 # 9. Set configs
 # 10. Set up hyprpm
 
+DOTPATH=~/.dotfiles
+FLAGPATH=~/.dotfiles/flaglist.txt
+PKGLIST=~/.dotfiles/pkglist.txt
+YAYPKGLIST=~/.dotfiles/foreignpkglist.txt
+
+# 0. Git clone from dotfiles repository
+# git clone https://github.com/pinkSakoora/.dotfiles.git $DOTPATH
+sleep 1
+sed -i 's/DOTFILES=0/DOTFILES=1/' $FLAGPATH
+sleep 1
+
+cd ~
+
+# 0.5. Display current status according to flags
+printf "Progress:\n"
+cat ~/.dotfiles/flaglist.txt
+sleep 3
+
 # 1. Enable multilib
-PACMANPATH=/home/PinkSakoora/pacman.conf
-printf "Enabling multilib in /etc/pacman.conf"
-sudo sed -i 's/# Include = /etc/pacman.d/mirrorlist/Include = /etc/pacman.d/mirrorlist/' $PACMANPATH
-sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' pacman.conf
+# printf "Enabling multilib in /etc/pacman.conf"
+# sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+sed -i 's/MULTILIB=0/MULTILIB=1/' $FLAGPATH
+sleep 3
+
+# 2. Install pacman packages
+sudo pacman -S reflector
+sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+sudo pacman -S --needed - < $PKGLIST
+sed -i 's/PACMAN=0/PACMAN=1/' $FLAGPATH
+sleep 3
+
+# 3. Setup yay
+# git clone https://aur.archlinux.org/yay.git
+# cd ~/yay
+# makepkg -si
+sed -i 's/YAYSETUP=0/YAYSETUP=1/' $FLAGPATH
+sleep 3
+
