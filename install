@@ -1,50 +1,98 @@
 #!/bin/bash
 
-# 1. Edit pacman config to enable multilb
-# 2. Install basic pacman packages
-# 3. Setup yay
-# 4. Install yay packages
-# 6. Install zsh as default shell
-# 7. Install oh-my-zsh
-# 8. Clone from dotfiles repo
-# 9. Set configs
-# 10. Set up hyprpm
-
 DOTPATH=~/.dotfiles
-FLAGPATH=~/.dotfiles/flaglist.txt
+FLAGPATH=~/.dotfiles/flaglist
 PKGLIST=~/.dotfiles/pkglist.txt
 YAYPKGLIST=~/.dotfiles/foreignpkglist.txt
 
-# 0. Git clone from dotfiles repository
-# git clone https://github.com/pinkSakoora/.dotfiles.git $DOTPATH
-sleep 1
-sed -i 's/DOTFILES=0/DOTFILES=1/' $FLAGPATH
-sleep 1
+source=$FLAGPATH
 
 cd ~
 
 # 0.5. Display current status according to flags
-printf "Progress:\n"
-cat ~/.dotfiles/flaglist.txt
+printf "\nProgress:\n"
+cat $FLAGPATH
 sleep 3
 
 # 1. Enable multilib
-# printf "Enabling multilib in /etc/pacman.conf"
-# sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-sed -i 's/MULTILIB=0/MULTILIB=1/' $FLAGPATH
+if [$MULTILIB -eq 0]; then
+	printf "\nEnabling multilib in /etc/pacman.conf\n"
+	sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+	sed -i 's/MULTILIB=0/MULTILIB=1/' $FLAGPATH
+else
+	printf "\nMultilib has already been enabled through this script.\n"
+fi
 sleep 3
 
 # 2. Install pacman packages
-sudo pacman -S reflector
-sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-sudo pacman -S --needed - < $PKGLIST
-sed -i 's/PACMAN=0/PACMAN=1/' $FLAGPATH
+if [$PACMAN -eq 0]; then
+	printf "\nInstalling all previously installed packages\n"
+	sudo pacman -S reflector
+	sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+	sleep 0.5
+	sudo pacman -S --needed - < $PKGLIST
+	sed -i 's/PACMAN=0/PACMAN=1/' $FLAGPATH
+else
+	printf "\nRequired packages have already been installed.\n"
+fi
 sleep 3
 
 # 3. Setup yay
-# git clone https://aur.archlinux.org/yay.git
-# cd ~/yay
-# makepkg -si
-sed -i 's/YAYSETUP=0/YAYSETUP=1/' $FLAGPATH
+if [$YAYSETUP -eq 0]; then
+	printf "\nSetting up yay\n"
+	git clone https://aur.archlinux.org/yay.git
+	cd ~/yay
+	sleep 0.5
+	makepkg -si
+	sleep 0.5
+	cd ~
+	sed -i 's/YAYSETUP=0/YAYSETUP=1/' $FLAGPATH
+else
+	printf "\nyay has been previously set up.\n"
+fi
 sleep 3
+
+# 4. Install yay packages
+if [$YAYIN -eq 0]; then
+	printf "\nInstalling AUR packages via yay\n"
+	yay -Y --gendb
+	sleep 0.5
+	yay -Syu --devel
+	sleep 0.5
+	yay -S - < $YAYPKGLIST
+	sed -i 's/YAYIN=0/YAYIN=1/' $FLAGPATH
+else
+	printf "\nAUR packages have already been installed.\n"
+fi
+
+# 5. zsh configuration.
+if [$ZSHDEF -eq 0]; then
+	printf "\nSetting zsh as default shell"
+	chsh -s /bin/zsh
+	sleep 0.5
+	printf "\nInstalling oh-my-zsh"
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+	sed -i 's/ZSHDEF=0/ZSHDEF=1/' $FLAGPATH
+else
+	printf "\nzsh had already been set up.\n"
+fi
+
+# 6. Configs
+if [$CONFIG -eq 0]; then
+	printf "\nMoving config files from .dotfiles to required location"
+	mv $DOTPATH/.config ~
+	sleep 0.5
+	printf "\nMoving wallpapers"
+	mv $DOTPATH/Wallpapers ~/Pictures/
+	sleep 0.5
+	printf "\nSetting up app defaults for dolphin"
+	sudo update-desktop-database
+	sleep 0.5
+	if(find /etc/xdg/menu/arch-applications.menu -eq 0)
+		sudo mv arch-applications.menu applications.menu
+	fi
+	kbuildsycoca6 --noincremental
+else
+	printf "\nConfiguration is completed.\n"
+fi
 

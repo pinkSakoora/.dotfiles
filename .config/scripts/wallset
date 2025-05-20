@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+EXT_1=".png"
+EXT_2=".jpg"
+WALLDIR=/home/PinkSakoora/Pictures/Wallpapers/
+
+ls $WALLDIR
+printf "Enter wallpaper name from above: "
+read wallname
+if [ -f $WALLDIR$wallname$EXT_1 ]; then
+	wal -i $WALLDIR$wallname$EXT_1 -nq
+	swww img -t outer $WALLDIR$wallname$EXT_1
+	pywalfox update
+	~/.config/scripts/rogwal.sh static
+	printf "\nSetting $wallname as wallpaper.\n"
+elif [ -f $WALLDIR$wallname$EXT_2 ]; then
+	wal -i $WALLDIR$wallname$EXT_2 -nq
+	swww img -t outer $WALLDIR$wallname$EXT_2
+	pywalfox update
+	~/.config/scripts/rogwal.sh static
+	printf "\nSetting $wallname as wallpaper.\n"
+elif [ -f $WALLDIR$wallname ]; then
+	wal -i $WALLDIR$wallname -nq
+	swww img -t outer $WALLDIR$wallname
+	pywalfox update
+	~/.config/scripts/rogwal.sh static
+	printf "\nSetting $wallname as wallpaper.\n"
+else
+	printf "\n $wallname: invalid filename!\n"
+fi
+
