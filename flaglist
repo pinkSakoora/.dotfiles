@@ -1,8 +1,8 @@
 #!/bin/bash
 
-MULTILIB=0
-PACMAN=0
-YAYSETUP=0
-YAYIN=0
-ZSHDEF=0
-CONFIG=0
+export MULTILIB=0
+export PACMAN=0
+export YAYSETUP=0
+export YAYIN=0
+export ZSHDEF=0
+export CONFIG=0

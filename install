@@ -15,7 +15,7 @@ cat $FLAGPATH
 sleep 3
 
 # 1. Enable multilib
-if [$MULTILIB -eq 0]; then
+if [ $MULTILIB -eq 0 ]; then
 	printf "\nEnabling multilib in /etc/pacman.conf\n"
 	sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 	sed -i 's/MULTILIB=0/MULTILIB=1/' $FLAGPATH
@@ -25,8 +25,9 @@ fi
 sleep 3
 
 # 2. Install pacman packages
-if [$PACMAN -eq 0]; then
+if [ $PACMAN -eq 0 ]; then
 	printf "\nInstalling all previously installed packages\n"
+	sudo pacman -Sy
 	sudo pacman -S reflector
 	sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 	sleep 0.5
@@ -38,7 +39,7 @@ fi
 sleep 3
 
 # 3. Setup yay
-if [$YAYSETUP -eq 0]; then
+if [ $YAYSETUP -eq 0 ]; then
 	printf "\nSetting up yay\n"
 	git clone https://aur.archlinux.org/yay.git
 	cd ~/yay
@@ -53,7 +54,7 @@ fi
 sleep 3
 
 # 4. Install yay packages
-if [$YAYIN -eq 0]; then
+if [ $YAYIN -eq 0 ]; then
 	printf "\nInstalling AUR packages via yay\n"
 	yay -Y --gendb
 	sleep 0.5
@@ -66,7 +67,7 @@ else
 fi
 
 # 5. zsh configuration.
-if [$ZSHDEF -eq 0]; then
+if [ $ZSHDEF -eq 0 ]; then
 	printf "\nSetting zsh as default shell"
 	chsh -s /bin/zsh
 	sleep 0.5
@@ -78,18 +79,21 @@ else
 fi
 
 # 6. Configs
-if [$CONFIG -eq 0]; then
+if [ $CONFIG -eq 0 ]; then
 	printf "\nMoving config files from .dotfiles to required location"
 	mv $DOTPATH/.config ~
 	sleep 0.5
 	printf "\nMoving wallpapers"
-	mv $DOTPATH/Wallpapers ~/Pictures/
+	mkdir ~/Pictures/Wallpapers
+	mv $DOTPATH/Wallpapers ~/Pictures/Wallpapers
 	sleep 0.5
 	printf "\nSetting up app defaults for dolphin"
 	sudo update-desktop-database
 	sleep 0.5
-	if(find /etc/xdg/menu/arch-applications.menu -eq 0)
+	if [ -f /etc/xdg/menus/arch-applications.menu ]; then
+		cd /etc/xdg/menus
 		sudo mv arch-applications.menu applications.menu
+		cd ~
 	fi
 	kbuildsycoca6 --noincremental
 else

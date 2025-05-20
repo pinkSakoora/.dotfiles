@@ -2,7 +2,7 @@
 
 EXT_1=".png"
 EXT_2=".jpg"
-WALLDIR=/home/PinkSakoora/Pictures/Wallpapers/
+WALLDIR=~/Pictures/Wallpapers/
 
 ls $WALLDIR
 printf "Enter wallpaper name from above: "
