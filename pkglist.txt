@@ -19,7 +19,6 @@ brightnessctl
 calligra
 cava
 chafa
-chezmoi
 cliphist
 cmatrix
 code
@@ -40,7 +39,6 @@ fastfetch
 fd
 ffmpegthumbs
 filelight
-firefox
 fzf
 git
 glad
@@ -58,7 +56,6 @@ hyprpicker
 hyprpolkitagent
 hyprsunset
 imagemagick
-inter-font
 kde-cli-tools
 kdegraphics-thumbnailers
 kdenetwork-filesharing

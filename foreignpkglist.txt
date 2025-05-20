@@ -1,13 +1,10 @@
 asusctl
-github-desktop
 hyprshade
 hyprshot
 hyprsysteminfo
-mimeo
 python-pywal16
 python-pywalfox
 rose-pine-hyprcursor
 spotify
 ttf-zpix
-unityhub
 zen-browser-bin

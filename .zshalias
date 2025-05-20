@@ -1,0 +1,11 @@
+wallset() {
+	~/.config/scripts/wallset
+}	# Runs a wallpaper setting script
+
+fixupdate() {
+	sudo rm -R /var/lib/pacman/sync
+	sleep 0.5
+	sudo find /var/cache/pacman/pkg/ -iname "*part" -delete
+	sleep 0.5
+	sudo pacman-key --populate archlinux
+}	# Fixes interrupted or partial pacman downloads
