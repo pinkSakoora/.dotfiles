@@ -1,6 +1,5 @@
 #!/bin/bash
 
-MULTILIB="0"
 PACMAN="0"
 YAYSETUP="0"
 YAYIN="0"

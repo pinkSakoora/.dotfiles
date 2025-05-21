@@ -2,6 +2,7 @@
 Basic dots, currently only for my use.
 
 ![Dots Preview](https://github.com/pinkSakoora/.dotfiles/blob/f4a300ef0f18a04ca3cf7986d31ad2ec39ecbb21/2025-04-23-172643_hyprshot.png)
+_All wallpapers included are made by me! :D_
 
 ## Requirements
 Arch installation (the fresher, the better), git (duh)

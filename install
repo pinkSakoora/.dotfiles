@@ -35,7 +35,7 @@ sleep 3
 
 # 2. Install pacman packages
 if [[ $PACMAN == 0 ]]; then
-	printf "\nInstalling all previously installed packages\n"
+	printf "\nInstalling all recommended packages\n"
 	sudo pacman -Sy
 	sleep 0.5
 	sudo pacman -S --needed - < $PKGLIST
@@ -95,6 +95,14 @@ sleep 3
 
 # 6. Configs
 printf "\nIt is recommended to execute the following in a different tty as the configs will be changed.\n"
+while true; do
+    read -p "Proceed with changing configs? [y/n]" configyn
+    case $configyn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;; 
+        * ) echo "Input y/n.";;
+    esac
+done
 if [[ $CONFIG == 0 ]]; then
 	SUFFIX="-pre-sakoora"
 	printf "\nRenaming preexisting config files\n"
